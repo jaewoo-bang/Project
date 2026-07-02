@@ -70,6 +70,8 @@
           
           <div class="auth-helper-links">
             <button id="link-to-find-id" class="btn-text font-sm">이메일(아이디)을 잊으셨나요?</button>
+            <span class="helper-separator" style="color: var(--border-color); margin: 0 8px;">|</span>
+            <button id="link-to-find-password" class="btn-text font-sm">비밀번호를 잊으셨나요?</button>
           </div>
 
           <div class="divider-line"></div>
@@ -170,6 +172,35 @@
           </div>
         </div>
 
+        <!-- [비밀번호 찾기 화면] -->
+        <div id="find-password-box" class="auth-box hidden">
+          <h2>비밀번호 찾기</h2>
+          <p class="subtitle">가입하신 이메일 주소로 비밀번호 재설정 링크를 보내드립니다.</p>
+          
+          <form id="form-find-password">
+            <div class="input-group">
+              <label for="find-password-email">이메일 주소</label>
+              <div class="input-wrapper">
+                <input type="email" id="find-password-email" required placeholder="example@domain.com">
+              </div>
+            </div>
+            <button type="submit" id="btn-find-password-submit" class="btn btn-primary btn-block">재설정 링크 전송</button>
+          </form>
+
+          <!-- 전송 완료 결과창 -->
+          <div id="find-password-result" class="find-result-area hidden" style="background: rgba(16, 185, 129, 0.06); border-color: rgba(16, 185, 129, 0.2);">
+            <p class="result-label" style="color: var(--color-success);">재설정 메일 전송 완료</p>
+            <p id="reset-email-display" class="result-value" style="color: var(--color-success); font-size: 1.1rem; overflow-wrap: break-word;">-</p>
+            <p class="result-tip">입력하신 이메일로 비밀번호 재설정 메일이 발송되었습니다. 메일함의 링크를 통해 비밀번호를 변경해 주세요.</p>
+          </div>
+
+          <div class="divider-line"></div>
+
+          <div class="auth-switch">
+            <button id="link-find-password-to-login" class="btn btn-secondary btn-block">로그인 화면으로 이동</button>
+          </div>
+        </div>
+
       </section>
 
       <!-- 2. 로그인 완료 시 화면 (추천 메인 대시보드) -->
@@ -204,6 +235,11 @@
             <div id="movie-recommendations" class="recommend-grid">
               <!-- JS 동적 렌더링 -->
             </div>
+            <div class="pagination-bar" id="movie-pagination">
+              <button class="pagination-btn" id="movie-prev-btn" disabled>&#9664; 이전</button>
+              <span class="pagination-info" id="movie-page-info">1 / 1</span>
+              <button class="pagination-btn" id="movie-next-btn" disabled>다음 &#9654;</button>
+            </div>
           </div>
 
           <!-- 음악 섹션 -->
@@ -214,6 +250,11 @@
             </div>
             <div id="music-recommendations" class="recommend-grid">
               <!-- JS 동적 렌더링 -->
+            </div>
+            <div class="pagination-bar" id="music-pagination">
+              <button class="pagination-btn" id="music-prev-btn" disabled>&#9664; 이전</button>
+              <span class="pagination-info" id="music-page-info">1 / 1</span>
+              <button class="pagination-btn" id="music-next-btn" disabled>다음 &#9654;</button>
             </div>
           </div>
         </div>
@@ -242,6 +283,11 @@
         <div class="recommend-group">
           <div id="explore-results-grid" class="recommend-grid">
             <!-- JS 동적 렌더링 -->
+          </div>
+          <div class="pagination-bar" id="explore-pagination">
+            <button class="pagination-btn" id="explore-prev-btn" disabled>&#9664; 이전</button>
+            <span class="pagination-info" id="explore-page-info">1 / 1</span>
+            <button class="pagination-btn" id="explore-next-btn" disabled>다음 &#9654;</button>
           </div>
         </div>
       </section>
@@ -317,9 +363,15 @@
           <div class="withdrawal-input-area">
             <label for="confirm-withdraw-text" class="confirm-label">탈퇴를 확정하려면 아래에 <strong>"탈퇴합니다"</strong>를 입력하세요.</label>
             <input type="text" id="confirm-withdraw-text" class="input-confirm" placeholder="탈퇴합니다">
+            
+            <!-- 안전한 탈퇴 진행을 위한 추가 동의 체크박스 (네이티브 팝업 차단 방지) -->
+            <div style="margin-top: 15px; display: flex; align-items: center; gap: 8px;">
+              <input type="checkbox" id="confirm-withdraw-check" style="width: 18px; height: 18px; cursor: pointer; accent-color: var(--color-danger);">
+              <label for="confirm-withdraw-check" style="font-size: 0.85rem; color: var(--text-secondary); cursor: pointer; user-select: none;">위 경고 사항을 충분히 숙지하였으며, 탈퇴를 확정합니다.</label>
+            </div>
           </div>
           
-          <button id="btn-withdraw" class="btn btn-danger" disabled>계정 영구 삭제</button>
+          <button type="button" id="btn-withdraw" class="btn btn-danger" disabled>계정 영구 삭제</button>
         </div>
       </section>
     </main>

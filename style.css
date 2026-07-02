@@ -80,9 +80,9 @@ body {
 
 /* 전체 콘테이너 래퍼 */
 .wrapper {
-  max-width: 1200px;
+  max-width: 1440px;
   margin: 0 auto;
-  padding: 30px 20px;
+  padding: 30px 30px;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -587,8 +587,52 @@ h3 {
 
 .recommend-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 25px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+}
+
+/* 페이지네이션 바 */
+.pagination-bar {
+  display: none; /* JS에서 필요 시 flex로 전환 */
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin-top: 28px;
+  padding: 12px 0;
+}
+
+.pagination-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  color: var(--text-secondary);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 10px 22px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  backdrop-filter: blur(8px);
+}
+
+.pagination-btn:hover:not(:disabled) {
+  color: #fff;
+  border-color: var(--color-cyan);
+  background: rgba(6, 182, 212, 0.1);
+  box-shadow: 0 0 12px rgba(6, 182, 212, 0.2);
+}
+
+.pagination-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.pagination-info {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+  min-width: 60px;
+  text-align: center;
 }
 
 /* 콘텐츠 카드 미디어 아트 */
@@ -1047,5 +1091,38 @@ h3 {
     text-align: center;
     padding: 12px 10px;
     font-size: 0.8rem;
+  }
+}
+
+/* 이미지 로딩 실패 시 적용될 모던 네온 그라데이션 배경 */
+.content-card-media.fallback-gradient {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.25) 0%, rgba(6, 182, 212, 0.25) 50%, rgba(236, 72, 153, 0.25) 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* 폴백 상태의 이모지 프리미엄 확대 연출 */
+.media-overlay-emoji.fallback-emoji {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) scale(1.6) !important;
+  font-size: 2.4rem !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  padding: 14px !important;
+  border-radius: 50% !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  backdrop-filter: blur(8px) !important;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.3) !important;
+  animation: pulseEmoji 2.5s infinite alternate ease-in-out;
+}
+
+@keyframes pulseEmoji {
+  0% { 
+    transform: translate(-50%, -50%) scale(1.5); 
+    box-shadow: 0 0 15px rgba(139, 92, 246, 0.2), inset 0 0 8px rgba(255,255,255,0.05); 
+  }
+  100% { 
+    transform: translate(-50%, -50%) scale(1.7); 
+    box-shadow: 0 0 30px rgba(6, 182, 212, 0.45), inset 0 0 15px rgba(255,255,255,0.1); 
   }
 }
