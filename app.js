@@ -2,7 +2,8 @@
 // 1. Supabase 접속 설정 (본인의 정보로 변경 필요)
 // ==========================================
 const SUPABASE_URL = "https://vvabwtxeegqzlosakuxt.supabase.co";
-const SUPABASE_ANON_KEY = "sb_publishable_rS_FE1GxWVrrqP8so9ovQg_7uNGEkqx";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ2YWJ3dHhlZWdxemxvc2FrdXh0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI5NDU0MTMsImV4cCI6MjA5ODUyMTQxM30.ab0V7cBBNrG2NhrTDfvLvPqqbeLErLTPMRGTYacsQw4";
+
 
 
 
