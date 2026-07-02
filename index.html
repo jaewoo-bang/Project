@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CineBeat - 음악 & 영화 개인화 추천</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+  <!-- Supabase JS Client SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+  <!-- 프리미엄 배경 글로우 연출 -->
+  <div class="bg-glow bg-glow-1"></div>
+  <div class="bg-glow bg-glow-2"></div>
+  <div class="bg-glow bg-glow-3"></div>
+
+  <div class="wrapper">
+    <!-- 메인 네비게이션 헤더 -->
+    <header class="main-header">
+      <div class="logo">
+        <span class="neon-text-purple">Cine</span><span class="neon-text-cyan">Beat</span>
+      </div>
+      <nav id="nav-menu" class="hidden">
+        <button id="btn-show-main" class="nav-link active">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+          추천 홈
+        </button>
+        <button id="btn-show-mypage" class="nav-link">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+          마이페이지
+        </button>
+        <button id="btn-logout" class="btn btn-outline btn-sm">로그아웃</button>
+      </nav>
+    </header>
+
+    <main class="main-content">
+      <!-- 1. 인증 섹션 (로그인 / 회원가입 / 아이디 찾기 통합 카드) -->
+      <section id="section-auth" class="auth-section card">
+        
+        <!-- [로그인 화면] -->
+        <div id="login-box" class="auth-box">
+          <h2>환영합니다</h2>
+          <p class="subtitle">계정에 로그인하여 맞춤형 영화와 음악을 추천받으세요.</p>
+          
+          <form id="form-login">
+            <div class="input-group">
+              <label for="login-email">이메일 주소</label>
+              <div class="input-wrapper">
+                <input type="email" id="login-email" required placeholder="example@domain.com">
+              </div>
+            </div>
+            <div class="input-group">
+              <label for="login-password">비밀번호</label>
+              <div class="input-wrapper">
+                <input type="password" id="login-password" required placeholder="••••••••">
+              </div>
+            </div>
+            <button type="submit" id="btn-login-submit" class="btn btn-primary btn-block">로그인</button>
+          </form>
+          
+          <div class="auth-helper-links">
+            <button id="link-to-find-id" class="btn-text font-sm">이메일(아이디)을 잊으셨나요?</button>
+          </div>
+
+          <div class="divider-line"></div>
+
+          <div class="auth-switch">
+            아직 회원이 아니신가요? <button id="link-to-register" class="btn-text">회원가입</button>
+          </div>
+        </div>
+
+        <!-- [회원가입 화면] -->
+        <div id="register-box" class="auth-box hidden">
+          <h2>가입하기</h2>
+          <p class="subtitle">새 계정을 만들고 취향 맞춤 미디어를 탐색해 보세요.</p>
+          
+          <form id="form-register">
+            <div class="input-group">
+              <label for="register-email">이메일 주소</label>
+              <div class="input-wrapper">
+                <input type="email" id="register-email" required placeholder="example@domain.com">
+              </div>
+            </div>
+            <div class="input-group">
+              <label for="register-password">비밀번호</label>
+              <div class="input-wrapper">
+                <input type="password" id="register-password" required placeholder="최소 6자리 이상 입력">
+              </div>
+            </div>
+            <div class="input-group">
+              <label for="register-phone">전화번호 (아이디 찾기용)</label>
+              <div class="input-wrapper">
+                <input type="tel" id="register-phone" required placeholder="010-0000-0000" maxlength="13">
+              </div>
+            </div>
+
+            <!-- 선호 장르 다중 선택 칩 -->
+            <div class="genre-selector">
+              <span class="genre-label">선호하는 미디어 장르 선택 (다중 선택)</span>
+              
+              <div class="genre-category">
+                <h4>🎬 선호 영화 장르</h4>
+                <div class="genre-grid">
+                  <label class="genre-chip"><input type="checkbox" name="genres" value="Action"> <span>🔥 액션</span></label>
+                  <label class="genre-chip"><input type="checkbox" name="genres" value="Comedy"> <span>🍿 코미디</span></label>
+                  <label class="genre-chip"><input type="checkbox" name="genres" value="Romance"> <span>💖 로맨스</span></label>
+                  <label class="genre-chip"><input type="checkbox" name="genres" value="Sci-Fi"> <span>🛸 SF/판타지</span></label>
+                  <label class="genre-chip"><input type="checkbox" name="genres" value="Horror"> <span>👻 공포/스릴러</span></label>
+                </div>
+              </div>
+
+              <div class="genre-category">
+                <h4>🎵 선호 음악 장르</h4>
+                <div class="genre-grid">
+                  <label class="genre-chip"><input type="checkbox" name="genres" value="Pop"> <span>🎙️ 팝</span></label>
+                  <label class="genre-chip"><input type="checkbox" name="genres" value="Rock"> <span>🎸 록/메탈</span></label>
+                  <label class="genre-chip"><input type="checkbox" name="genres" value="Hip-Hop"> <span>🎤 힙합</span></label>
+                  <label class="genre-chip"><input type="checkbox" name="genres" value="Jazz"> <span>🎷 재즈</span></label>
+                  <label class="genre-chip"><input type="checkbox" name="genres" value="Classical"> <span>🎻 클래식</span></label>
+                </div>
+              </div>
+            </div>
+
+            <button type="submit" id="btn-register-submit" class="btn btn-primary btn-block">회원가입 완료</button>
+          </form>
+          
+          <div class="divider-line"></div>
+
+          <div class="auth-switch">
+            이미 계정이 있으신가요? <button id="link-to-login" class="btn-text">로그인</button>
+          </div>
+        </div>
+
+        <!-- [아이디 찾기 화면] -->
+        <div id="find-id-box" class="auth-box hidden">
+          <h2>아이디 찾기</h2>
+          <p class="subtitle">가입할 때 등록한 전화번호로 이메일 주소를 검색합니다.</p>
+          
+          <form id="form-find-id">
+            <div class="input-group">
+              <label for="find-phone">가입 전화번호</label>
+              <div class="input-wrapper">
+                <input type="tel" id="find-phone" required placeholder="010-0000-0000" maxlength="13">
+              </div>
+            </div>
+            <button type="submit" id="btn-find-submit" class="btn btn-primary btn-block">검색하기</button>
+          </form>
+
+          <!-- 찾기 결과창 -->
+          <div id="find-id-result" class="find-result-area hidden">
+            <p class="result-label">가입된 이메일 계정 정보</p>
+            <p id="found-email-display" class="result-value">-</p>
+            <p class="result-tip">해당 이메일로 로그인을 진행해 주세요.</p>
+          </div>
+
+          <div class="divider-line"></div>
+
+          <div class="auth-switch">
+            <button id="link-find-to-login" class="btn btn-secondary btn-block">로그인 화면으로 이동</button>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- 2. 로그인 완료 시 화면 (추천 메인 대시보드) -->
+      <section id="section-main" class="main-dashboard hidden">
+        
+        <!-- 프리미엄 웰컴 배너 -->
+        <div class="welcome-banner card">
+          <div class="banner-content">
+            <div class="welcome-top">
+              <h1 id="welcome-message">안녕하세요!</h1>
+              <span class="user-status-tag">Active User</span>
+            </div>
+            <p>회원님이 선택하신 장르 취향을 분석하여 최적화된 추천 리스트를 준비했습니다.</p>
+            
+            <div class="my-genres-badge">
+              <span class="label-text">선택 취향 필터 :</span>
+              <div id="preferred-genres-list" class="badge-container">
+                <!-- 장르 뱃지 동적 생성 -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 추천 콘텐츠 그리드 레이아웃 -->
+        <div class="content-sections">
+          <!-- 영화 섹션 -->
+          <div class="recommend-group">
+            <div class="section-title-bar">
+              <div class="bullet-bar"></div>
+              <h3>🎥 취향 맞춤 추천 영화</h3>
+            </div>
+            <div id="movie-recommendations" class="recommend-grid">
+              <!-- JS 동적 렌더링 -->
+            </div>
+          </div>
+
+          <!-- 음악 섹션 -->
+          <div class="recommend-group">
+            <div class="section-title-bar">
+              <div class="bullet-bar cyan"></div>
+              <h3>🎵 취향 맞춤 추천 음악</h3>
+            </div>
+            <div id="music-recommendations" class="recommend-grid">
+              <!-- JS 동적 렌더링 -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. 마이페이지 (비밀번호 변경 및 회원탈퇴) -->
+      <section id="section-mypage" class="mypage-section card hidden">
+        <div class="mypage-header">
+          <h2>설정 및 계정 관리</h2>
+          <p class="subtitle" id="user-info-text">계정 이메일: -</p>
+        </div>
+
+        <!-- [비밀번호 변경 화면] -->
+        <div class="sub-card">
+          <div class="sub-card-title-bar">
+            <svg class="sub-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+            <h3>비밀번호 재설정</h3>
+          </div>
+          <p class="sub-card-desc">안전한 로그인을 위해 비밀번호를 새로 변경합니다.</p>
+          <form id="form-change-password">
+            <div class="input-group">
+              <label for="new-password">새 비밀번호 입력</label>
+              <div class="input-wrapper">
+                <input type="password" id="new-password" required placeholder="최소 6자리 이상 입력">
+              </div>
+            </div>
+            <button type="submit" id="btn-password-submit" class="btn btn-secondary">변경사항 저장</button>
+          </form>
+        </div>
+
+        <!-- [회원탈퇴 화면] -->
+        <div class="sub-card danger-zone">
+          <div class="sub-card-title-bar text-danger">
+            <svg class="sub-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+            <h3>회원 탈퇴 진행</h3>
+          </div>
+          <p class="sub-card-desc text-secondary">계정을 영구 삭제합니다. 가입 정보, 선호 장르 등의 모든 취향 정보가 복구 불가능하게 삭제됩니다.</p>
+          
+          <div class="withdrawal-input-area">
+            <label for="confirm-withdraw-text" class="confirm-label">탈퇴를 확정하려면 아래에 <strong>"탈퇴합니다"</strong>를 입력하세요.</label>
+            <input type="text" id="confirm-withdraw-text" class="input-confirm" placeholder="탈퇴합니다">
+          </div>
+          
+          <button id="btn-withdraw" class="btn btn-danger" disabled>계정 영구 삭제</button>
+        </div>
+      </section>
+    </main>
+
+    <!-- 푸터 -->
+    <footer class="main-footer">
+      <p>&copy; 2026 CineBeat. All rights reserved.</p>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
