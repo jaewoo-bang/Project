@@ -1,7 +1,7 @@
 // ==========================================
 // 1. Supabase 접속 설정 (본인의 정보로 변경 필요)
 // ==========================================
-const SUPABASE_URL = "https://yavgvmkllkipdobrpqfg.supabase.co"; 
+const SUPABASE_URL = "https://vvabwtxeegqzlosakuxt.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inlhdmd2bWtsbGtpcGRvYnJwcWZnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI4NDcyODYsImV4cCI6MjA5ODQyMzI4Nn0.BGeCdEFD6gqbJBjo87qJyAzHNNg5D0pxYOpt1-uhCrI";
 
 let supabaseInstance = null;
@@ -20,178 +20,178 @@ try {
 // 2. 추천 시스템 콘텐츠 데이터베이스 (고화질 플레이스홀더 이미지 포함)
 // ==========================================
 const RECOMMEND_MOVIES = [
-  { 
-    id: 1, 
-    title: "다크 나이트", 
-    genre: "Action", 
-    emoji: "🦇", 
+  {
+    id: 1,
+    title: "다크 나이트",
+    genre: "Action",
+    emoji: "🦇",
     image: "https://images.unsplash.com/photo-1478760329108-5c3ed9d495a0?q=80&w=400",
-    desc: "영웅의 어두운 내면을 깊이 있게 탐구한 세기의 액션 블록버스터." 
+    desc: "영웅의 어두운 내면을 깊이 있게 탐구한 세기의 액션 블록버스터."
   },
-  { 
-    id: 2, 
-    title: "매드맥스: 분노의 도로", 
-    genre: "Action", 
-    emoji: "🔥", 
+  {
+    id: 2,
+    title: "매드맥스: 분노의 도로",
+    genre: "Action",
+    emoji: "🔥",
     image: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=400",
-    desc: "황폐화된 사막 한가운데서 생존을 위해 펼쳐지는 폭렬 카체이싱 액션." 
+    desc: "황폐화된 사막 한가운데서 생존을 위해 펼쳐지는 폭렬 카체이싱 액션."
   },
-  { 
-    id: 3, 
-    title: "라라랜드", 
-    genre: "Romance", 
-    emoji: "💃", 
+  {
+    id: 3,
+    title: "라라랜드",
+    genre: "Romance",
+    emoji: "💃",
     image: "https://images.unsplash.com/photo-1518609878373-06d740f60d8b?q=80&w=400",
-    desc: "꿈을 쫓는 청춘들의 열정과 계절처럼 변하는 애틋한 로맨스 뮤지컬." 
+    desc: "꿈을 쫓는 청춘들의 열정과 계절처럼 변하는 애틋한 로맨스 뮤지컬."
   },
-  { 
-    id: 4, 
-    title: "어바웃 타임", 
-    genre: "Romance", 
-    emoji: "⏰", 
+  {
+    id: 4,
+    title: "어바웃 타임",
+    genre: "Romance",
+    emoji: "⏰",
     image: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=400",
-    desc: "시간을 되돌리는 능력을 통해 배우는 따스한 삶과 사랑의 교훈." 
+    desc: "시간을 되돌리는 능력을 통해 배우는 따스한 삶과 사랑의 교훈."
   },
-  { 
-    id: 5, 
-    title: "익스트림 잡 (극한직업)", 
-    genre: "Comedy", 
-    emoji: "🍗", 
+  {
+    id: 5,
+    title: "익스트림 잡 (극한직업)",
+    genre: "Comedy",
+    emoji: "🍗",
     image: "https://images.unsplash.com/photo-1551782450-a2132b4ba21d?q=80&w=400",
-    desc: "낮에는 치킨 장사, 밤에는 잠복근무를 펼치는 마약반 형사들의 코믹 활극." 
+    desc: "낮에는 치킨 장사, 밤에는 잠복근무를 펼치는 마약반 형사들의 코믹 활극."
   },
-  { 
-    id: 6, 
-    title: "행오버", 
-    genre: "Comedy", 
-    emoji: "🥴", 
+  {
+    id: 6,
+    title: "행오버",
+    genre: "Comedy",
+    emoji: "🥴",
     image: "https://images.unsplash.com/photo-1485872299829-c673f5194813?q=80&w=400",
-    desc: "총각파티 다음 날 필름이 끊긴 채 사라진 신랑을 찾는 소동극." 
+    desc: "총각파티 다음 날 필름이 끊긴 채 사라진 신랑을 찾는 소동극."
   },
-  { 
-    id: 7, 
-    title: "인터스텔라", 
-    genre: "Sci-Fi", 
-    emoji: "🚀", 
+  {
+    id: 7,
+    title: "인터스텔라",
+    genre: "Sci-Fi",
+    emoji: "🚀",
     image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=400",
-    desc: "인류 구원을 위해 성간 우주와 차원의 경계를 넘는 탐험가들의 장엄한 기록." 
+    desc: "인류 구원을 위해 성간 우주와 차원의 경계를 넘는 탐험가들의 장엄한 기록."
   },
-  { 
-    id: 8, 
-    title: "매트릭스", 
-    genre: "Sci-Fi", 
-    emoji: "🕶️", 
+  {
+    id: 8,
+    title: "매트릭스",
+    genre: "Sci-Fi",
+    emoji: "🕶️",
     image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=400",
-    desc: "인간을 지배하는 기계 문명의 가상 세계에 맞서는 전사 네오의 탄생." 
+    desc: "인간을 지배하는 기계 문명의 가상 세계에 맞서는 전사 네오의 탄생."
   },
-  { 
-    id: 9, 
-    title: "컨저링", 
-    genre: "Horror", 
-    emoji: "👻", 
+  {
+    id: 9,
+    title: "컨저링",
+    genre: "Horror",
+    emoji: "👻",
     image: "https://images.unsplash.com/photo-1505635339358-1110cee0c7e4?q=80&w=400",
-    desc: "초자연적 악령에 고통받는 시골 패밀리를 돕는 영매사 워렌 부부의 모험." 
+    desc: "초자연적 악령에 고통받는 시골 패밀리를 돕는 영매사 워렌 부부의 모험."
   },
-  { 
-    id: 10, 
-    title: "겟 아웃", 
-    genre: "Horror", 
-    emoji: "👁️", 
+  {
+    id: 10,
+    title: "겟 아웃",
+    genre: "Horror",
+    emoji: "👁️",
     image: "https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=400",
-    desc: "연인의 고향 집에 머물며 서서히 밝혀지는 백인 가문의 소름 끼치는 서스펜스." 
+    desc: "연인의 고향 집에 머물며 서서히 밝혀지는 백인 가문의 소름 끼치는 서스펜스."
   }
 ];
 
 const RECOMMEND_MUSIC = [
-  { 
-    id: 101, 
-    title: "Dynamite", 
-    artist: "BTS", 
-    genre: "Pop", 
-    emoji: "🎙️", 
+  {
+    id: 101,
+    title: "Dynamite",
+    artist: "BTS",
+    genre: "Pop",
+    emoji: "🎙️",
     image: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=400",
-    desc: "글로벌 차트를 장악한 신나고 밝은 펑키 디스코 풍 댄스곡." 
+    desc: "글로벌 차트를 장악한 신나고 밝은 펑키 디스코 풍 댄스곡."
   },
-  { 
-    id: 102, 
-    title: "Blinding Lights", 
-    artist: "The Weeknd", 
-    genre: "Pop", 
-    emoji: "🌃", 
+  {
+    id: 102,
+    title: "Blinding Lights",
+    artist: "The Weeknd",
+    genre: "Pop",
+    emoji: "🌃",
     image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=400",
-    desc: "중독성 넘치는 80년대 레트로 신스 비트와 몽환적인 음색." 
+    desc: "중독성 넘치는 80년대 레트로 신스 비트와 몽환적인 음색."
   },
-  { 
-    id: 103, 
-    title: "Bohemian Rhapsody", 
-    artist: "Queen", 
-    genre: "Rock", 
-    emoji: "🎸", 
+  {
+    id: 103,
+    title: "Bohemian Rhapsody",
+    artist: "Queen",
+    genre: "Rock",
+    emoji: "🎸",
     image: "https://images.unsplash.com/photo-1498038432885-c6f3f1b912ee?q=80&w=400",
-    desc: "아카펠라, 오페라, 메탈이 극적인 서사로 이어지는 명곡." 
+    desc: "아카펠라, 오페라, 메탈이 극적인 서사로 이어지는 명곡."
   },
-  { 
-    id: 104, 
-    title: "Smells Like Teen Spirit", 
-    artist: "Nirvana", 
-    genre: "Rock", 
-    emoji: "⚡", 
+  {
+    id: 104,
+    title: "Smells Like Teen Spirit",
+    artist: "Nirvana",
+    genre: "Rock",
+    emoji: "⚡",
     image: "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?q=80&w=400",
-    desc: "얼터너티브 그런지 록 붐을 일으키며 청춘의 저항적 감성을 대변하는 곡." 
+    desc: "얼터너티브 그런지 록 붐을 일으키며 청춘의 저항적 감성을 대변하는 곡."
   },
-  { 
-    id: 105, 
-    title: "Style", 
-    artist: "Beenzino", 
-    genre: "Hip-Hop", 
-    emoji: "🎧", 
+  {
+    id: 105,
+    title: "Style",
+    artist: "Beenzino",
+    genre: "Hip-Hop",
+    emoji: "🎧",
     image: "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?q=80&w=400",
-    desc: "위트 있고 직관적인 플로우와 감각적인 힙합 리듬의 조화." 
+    desc: "위트 있고 직관적인 플로우와 감각적인 힙합 리듬의 조화."
   },
-  { 
-    id: 106, 
-    title: "Lose Yourself", 
-    artist: "Eminem", 
-    genre: "Hip-Hop", 
-    emoji: "🎤", 
+  {
+    id: 106,
+    title: "Lose Yourself",
+    artist: "Eminem",
+    genre: "Hip-Hop",
+    emoji: "🎤",
     image: "https://images.unsplash.com/photo-1503095396549-807759245b35?q=80&w=400",
-    desc: "자전적 이야기와 절박한 에너지가 돋보이는 역사적 랩 스타의 수작." 
+    desc: "자전적 이야기와 절박한 에너지가 돋보이는 역사적 랩 스타의 수작."
   },
-  { 
-    id: 107, 
-    title: "Take Five", 
-    artist: "Dave Brubeck", 
-    genre: "Jazz", 
-    emoji: "🎷", 
+  {
+    id: 107,
+    title: "Take Five",
+    artist: "Dave Brubeck",
+    genre: "Jazz",
+    emoji: "🎷",
     image: "https://images.unsplash.com/photo-1486591978090-58e619d37fe7?q=80&w=400",
-    desc: "5박자의 리듬 위로 흐르는 시원하고 우아한 색소폰 멜로디." 
+    desc: "5박자의 리듬 위로 흐르는 시원하고 우아한 색소폰 멜로디."
   },
-  { 
-    id: 108, 
-    title: "Fly Me to the Moon", 
-    artist: "Frank Sinatra", 
-    genre: "Jazz", 
-    emoji: "🌙", 
+  {
+    id: 108,
+    title: "Fly Me to the Moon",
+    artist: "Frank Sinatra",
+    genre: "Jazz",
+    emoji: "🌙",
     image: "https://images.unsplash.com/photo-1502318217862-aa4e294ba657?q=80&w=400",
-    desc: "스윙 재즈의 정석이자 전 세계의 낭만을 책임진 전설의 목소리." 
+    desc: "스윙 재즈의 정석이자 전 세계의 낭만을 책임진 전설의 목소리."
   },
-  { 
-    id: 109, 
-    title: "봄바람 (G선상의 아리아)", 
-    artist: "Various", 
-    genre: "Classical", 
-    emoji: "🎻", 
+  {
+    id: 109,
+    title: "봄바람 (G선상의 아리아)",
+    artist: "Various",
+    genre: "Classical",
+    emoji: "🎻",
     image: "https://images.unsplash.com/photo-1465847899084-d164df4dedc6?q=80&w=400",
-    desc: "바흐의 차분한 클래식을 현대적인 뉴에이지 선율로 재해석한 힐링 트랙." 
+    desc: "바흐의 차분한 클래식을 현대적인 뉴에이지 선율로 재해석한 힐링 트랙."
   },
-  { 
-    id: 110, 
-    title: "월광 소나타", 
-    artist: "Beethoven", 
-    genre: "Classical", 
-    emoji: "🎹", 
+  {
+    id: 110,
+    title: "월광 소나타",
+    artist: "Beethoven",
+    genre: "Classical",
+    emoji: "🎹",
     image: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?q=80&w=400",
-    desc: "달빛이 비치는 잔잔한 호숫가처럼 깊고 쓸쓸한 고요를 표현한 곡." 
+    desc: "달빛이 비치는 잔잔한 호숫가처럼 깊고 쓸쓸한 고요를 표현한 곡."
   }
 ];
 
@@ -223,7 +223,7 @@ function showSection(section) {
   sectionAuth.classList.add("hidden");
   sectionMain.classList.add("hidden");
   sectionMyPage.classList.add("hidden");
-  
+
   section.classList.remove("hidden");
 }
 
@@ -232,7 +232,7 @@ function showAuthBox(box) {
   loginBox.classList.add("hidden");
   registerBox.classList.add("hidden");
   findIdBox.classList.add("hidden");
-  
+
   box.classList.remove("hidden");
 }
 
@@ -260,7 +260,7 @@ function setLoading(button, isLoading) {
 function autoHyphen(str) {
   str = str.replace(/[^0-9]/g, ''); // 숫자 제외 문자 모두 제거
   let tmp = '';
-  
+
   if (str.length < 4) {
     return str;
   } else if (str.length < 8) {
@@ -356,7 +356,7 @@ document.getElementById("form-register").addEventListener("submit", async (e) =>
   const password = document.getElementById("register-password").value;
   const phone = document.getElementById("register-phone").value;
   const submitBtn = document.getElementById("btn-register-submit");
-  
+
   const selectedGenres = [];
   document.querySelectorAll("input[name='genres']:checked").forEach(cb => {
     selectedGenres.push(cb.value);
@@ -421,7 +421,7 @@ document.getElementById("form-login").addEventListener("submit", async (e) => {
     });
 
     if (error) throw error;
-    
+
     alert("환영합니다! 맞춤형 CineBeat를 시작합니다.");
     document.getElementById("form-login").reset();
   } catch (error) {
@@ -473,7 +473,7 @@ document.getElementById("form-find-id").addEventListener("submit", async (e) => 
 // [로그아웃]
 document.getElementById("btn-logout").addEventListener("click", async () => {
   if (!checkSupabaseInitialized()) return;
-  
+
   const { error } = await supabaseInstance.auth.signOut();
   if (error) {
     alert(`로그아웃 오류: ${error.message}`);
@@ -589,7 +589,7 @@ async function renderRecommendations(user) {
   }
 
   // 3. 음악 추천 필터링 및 렌더링
-  const matchedMusic = RECOMMEND_MUSIC.filter(music => 
+  const matchedMusic = RECOMMEND_MUSIC.filter(music =>
     preferredGenres.some(genre => genre.toLowerCase() === music.genre.toLowerCase())
   );
   if (matchedMusic.length === 0) {
@@ -622,7 +622,7 @@ function translateGenre(genre) {
 function createCard(item, type) {
   const card = document.createElement("div");
   card.className = "content-card";
-  
+
   const formattedGenre = type === 'movie' ? `🎬 영화 • ${item.genre}` : `🎵 음악 • ${item.genre}`;
   const subtitleInfo = type === 'music' ? `${item.artist}의 트랙` : '무비 컬렉션';
 
@@ -650,7 +650,7 @@ function createCard(item, type) {
 if (supabaseInstance) {
   supabaseInstance.auth.onAuthStateChange((event, session) => {
     console.log(`인증 상태 변동 감지 [이벤트: ${event}]`);
-    
+
     if (session) {
       navMenu.classList.remove("hidden");
       showSection(sectionMain);
